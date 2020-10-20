@@ -1,14 +1,18 @@
 import React, { Component } from "react";
+import { CSSTransition } from "react-transition-group";
 import { v4 as uuidv4 } from "uuid";
 import ContactCreator from "./ContactCreator";
 import ContactList from "./ContactList";
 import Section from "./Section";
 import FilterContact from "./FilterContact";
+import Notification from "./Notification";
+import notificationStyles from "./notification.module.css";
 
 export default class Phonebook extends Component {
   state = {
     contacts: [],
     filter: "",
+    notification: false,
   };
 
   componentDidMount() {
@@ -49,10 +53,10 @@ export default class Phonebook extends Component {
     );
 
     if (sameName) {
-      alert(`${contactName} is already in contacts`);
-      return;
-    } else if (!contactName || !number) {
-      alert("Enter phone number or name");
+      this.setState({
+        notification: true,
+      });
+      setTimeout(() => this.setState({ notification: false }), 4000);
       return;
     }
 
@@ -61,29 +65,40 @@ export default class Phonebook extends Component {
       name: contactName,
       contact: number,
     };
-
     this.setState((prevState) => {
       return {
         contacts: [...prevState.contacts, contact],
       };
     });
   };
+
   render() {
     const sortTask = this.showSortTask();
-    const { contacts, filter } = this.state;
+    const { contacts, filter, notification } = this.state;
     return (
-      <div>
+      <>
+        <CSSTransition
+          in={notification}
+          classNames={notificationStyles}
+          timeout={1000}
+          unmountOnExit
+        >
+          <Notification />
+        </CSSTransition>
+
         <Section title="Phonebook">
           <ContactCreator createTask={this.createTask} />
         </Section>
-        <Section title={contacts.length > 0 && "Contacts"}>
+        <Section
+          title={contacts.length > 0 ? "Contacts" : "Do not have contacts"}
+        >
           {contacts.length > 1 && (
             <FilterContact value={filter} onChangeFilter={this.changeFilter} />
           )}
 
           <ContactList items={sortTask} removeContact={this.removeContact} />
         </Section>
-      </div>
+      </>
     );
   }
 }

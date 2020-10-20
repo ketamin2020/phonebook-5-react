@@ -25,29 +25,33 @@ export default class ContactCreator extends Component {
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
-          <label>
-            Name
+          <div className="group">
             <input
               type="text"
               name="name"
-              placeholder="name"
+              required
               value={this.state.name}
               onChange={this.handleAddContact}
             />
-          </label>
+            <span className="bar"></span>
+            <label>Name</label>
+          </div>
 
-          <label>
-            Number
+          <div className="group">
             <input
               type="tel"
               name="number"
-              placeholder="tel.number"
+              required
               value={this.state.number}
               onChange={this.handleAddContact}
             />
-          </label>
+            <span className="bar"></span>
+            <label>Number </label>
+          </div>
 
-          <button type="submit"> Add contact</button>
+          <button className="glow-on-hover" type="submit">
+            Add contact
+          </button>
         </form>
       </div>
     );

@@ -2,8 +2,10 @@
   "name": "homework_2",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://ketamin2020.github.io/GOIT-FE-COURSE/",
+  "homepage": "https://ketamin2020.github.io/phonebook-5-react/",
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.32",
+    "@fortawesome/free-regular-svg-icons": "^5.15.1",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
@@ -11,6 +13,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.3",
+    "react-transition-group": "^4.4.1",
     "uuid": "^8.3.0"
   },
   "scripts": {
